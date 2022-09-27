@@ -21,7 +21,9 @@ const Login = ()=> {
       Swal.fire({
         icon : 'success',
         title : 'Logedin'
-      })
+      });
+      const data = await response.json();
+      sessionStorage.setItem('user', JSON.stringify(data));
       navigate('/editor')
     }else if((response.status === 401)){
       Swal.fire({
