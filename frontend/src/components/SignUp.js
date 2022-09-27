@@ -1,14 +1,43 @@
+import { Formik } from "formik";
 import React from "react";
+import Swal from "sweetalert2";
+
 const SignUp = () => {
+
+  const userSubmit = async (formdata) => {
+    console.log(formdata);
+    const response = await fetch( 'http://localhost:5000/user/add', {
+        method : 'POST',
+        body : JSON.stringify(formdata),
+        headers : {
+            'Content-Type' : 'application/json'
+        }
+    })       
+    console.log(response.status);
+    
+    if(response.status === 200){
+        console.log('user data added!');
+        Swal.fire({
+            icon : 'success',
+            title : 'Well Done',
+            text : 'Registered Successfully'
+        })
+      }else{
+      Swal.fire({
+        icon:'error',
+        title:'Opps!!',
+        text:'SomeThing Went Wrong'
+      })}
+
+    console.log('request sent');
+}
 
     
 
   return (
     <>
-      {/* Section: Design Block */}
       <section className="text-center text-lg-start">
         
-        {/* Jumbotron */}
         <div className="container py-4">
           <div className="row g-0 align-items-center">
             <div className="col-lg-6 mb-5 mb-lg-0">
@@ -19,110 +48,66 @@ const SignUp = () => {
                   backdropFilter: "blur(30px)",
                 }}
               >
-                <div className="card-body p-5 shadow-5 text-center">
+                <div className="card-body p-5 shadow-5 ">
                   <h2 className="fw-bold mb-5">Sign up now</h2>
-                  <form>
-                    {/* 2 column grid layout with text inputs for the first and last names */}
+                  <Formik initialValues={{
+                    name:"",
+                    email:"",
+                    password:"",
+                  }} onSubmit={userSubmit}>
+                    {({values,handleChange,handleSubmit})=>(
+                  <form onSubmit={handleSubmit}>
                     <div className="row">
-                      <div className="col-md-6 mb-4">
-                        <div className="form-outline">
+                      <div className=" mb-4">
+                        <div className="">
+                          <label className="form-label" htmlFor="name">
+                           Name
+                          </label>
                           <input
                             type="text"
-                            id="form3Example1"
+                            id="name"
+                            name="name"
                             className="form-control"
+                            value={values.name}
+                            onChange={handleChange}
                           />
-                          <label className="form-label" htmlFor="form3Example1">
-                            First name
-                          </label>
-                        </div>
-                      </div>
-                      <div className="col-md-6 mb-4">
-                        <div className="form-outline">
-                          <input
-                            type="text"
-                            id="form3Example2"
-                            className="form-control"
-                          />
-                          <label className="form-label" htmlFor="form3Example2">
-                            Last name
-                          </label>
                         </div>
                       </div>
                     </div>
-                    {/* Email input */}
-                    <div className="form-outline mb-4">
-                      <input
-                        type="email"
-                        id="form3Example3"
-                        className="form-control"
-                      />
-                      <label className="form-label" htmlFor="form3Example3">
+                    <div className=" mb-4">
+                      <label className="form-label" htmlFor="email">
                         Email address
                       </label>
-                    </div>
-                    {/* Password input */}
-                    <div className="form-outline mb-4">
                       <input
-                        type="password"
-                        id="form3Example4"
+                        type="email"
+                        id="email"
+                        name="email"
                         className="form-control"
+                        value={values.email}
+                        onChange={handleChange}
                       />
-                      <label className="form-label" htmlFor="form3Example4">
+                    </div>
+                    <div className=" mb-4">
+                      <label className="form-label" htmlFor="password">
                         Password
                       </label>
-                    </div>
-                    {/* Checkbox */}
-                    <div className="form-check d-flex justify-content-center mb-4">
                       <input
-                        className="form-check-input me-2"
-                        type="checkbox"
-                        defaultValue=""
-                        id="form2Example33"
-                        defaultChecked=""
+                        type="password"
+                        id="password"
+                        className="form-control"
+                        value={values.password}
+                        onChange={handleChange}
                       />
-                      <label
-                        className="form-check-label"
-                        htmlFor="form2Example33"
-                      >
-                        Subscribe to our newsletter
-                      </label>
                     </div>
-                    {/* Submit button */}
                     <button
                       type="submit"
                       className="btn btn-primary btn-block mb-4"
                     >
                       Sign up
                     </button>
-                    {/* Register buttons */}
-                    <div className="text-center">
-                      <p>or sign up with:</p>
-                      <button
-                        type="button"
-                        className="btn btn-link btn-floating mx-1"
-                      >
-                        <i className="fab fa-facebook-f" />
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-link btn-floating mx-1"
-                      >
-                        <i className="fab fa-google" />
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-link btn-floating mx-1"
-                      >
-                        <i className="fab fa-twitter" />
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-link btn-floating mx-1"
-                      >
-                        <i className="fab fa-github" />
-                      </button>
-                    </div>
                   </form>
+                    )}
+                    </Formik>
                 </div>
               </div>
             </div>
@@ -135,9 +120,7 @@ const SignUp = () => {
             </div>
           </div>
         </div>
-        {/* Jumbotron */}
       </section>
-      {/* Section: Design Block */}
     </>
   );
 };
