@@ -44,9 +44,9 @@ return (
           <div className="row g-0">
             <div className="col-md-6 col-lg-5 d-none d-md-block">
               <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                src="https://cdni.iconscout.com/illustration/premium/thumb/edit-social-media-profile-5295893-4412910.png"
                 alt="login form"
-                className="img-fluid"
+                className="d-block m-auto"
                 style={{ borderRadius: "1rem 0 0 1rem" }}
               />
             </div>
@@ -63,7 +63,7 @@ return (
                       className="fas fa-cubes fa-2x me-3"
                       style={{ color: "#ff6219" }}
                     />
-                    <span className="h1 fw-bold mb-0">Logo</span>
+                    <span className="h1 fw-bold mb-0">Image Editor</span>
                   </div>
                   <h5
                     className="fw-normal mb-3 pb-3"
